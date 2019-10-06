@@ -12,11 +12,11 @@ Martin Fowler said:
 
 https://www.martinfowler.com/articles/injection.html
 
-It might be better to use DI in some special cases. But usually it waste resources. ServiceLocator is simple and enough solution.
+It might be better to use DI in some special cases. But usually it waste time resources. ServiceLocator is simple and enough solution.
 
 ## Example
 
-You can replace instance without paying cost to learn mock library.
+Just call `Locatro.get(Class<T>)`, you'll get instance.
 
 ```kotlin
 import com.lavans.kasl.Locator
@@ -24,9 +24,15 @@ class UserService(){
   private val userRepo = Locator.get(UserRepo::class)
   fun get(id: Int) = userRepo.find(id)
 }
+```
 
+### Replace with Mock class
+
+You can replace instance without paying cost to learn mock library.
+
+```kotlin
 fun main(){
-  Locator.set(UserRepo::class, MockedUserRepo())
+  Locator.set(UserRepo::class, MockedUserRepo::class)
   UserService().get(1) // ... MockedUserRepo.find() will be called
 }
 ```
@@ -41,4 +47,73 @@ class MockedUserRepo(): UserRepo(){
 
 Not-overrided functions are still valid since it's derived from real UserRepo.
 
+### Singleton or Prototype
+
+Default is `Singleton`. If you want to use class as prototype, just add 1 parameter.
+
+```kotlin
+  Locator.set(Real::class, Type.Prototype)
+```
+
+You can set both Mock and Type at the same time.
+
+```kotlin
+  Locator.set(Real::class, Mocked::class, Type.Prototype)
+```
+
+
+## Customize for Aspect
+
+You can customize your instance dynamically with [cglib](https://github.com/cglib/cglib).
+
+For example, If you want to manage DB transaction from services. See below:
+
+```kotlin
+object TransactionalServiceLocator {
+  fun <T>get(klass: Class<T>){
+    if(Locator.has(klass)){
+      return Locator.get(klass)
+    }
+    val service = createService(klass, TransactionInterceptor())
+    Locator.set(klass, service)
+    return (T)service
+  }
+
+  fun <T>create(klass: Class<T>, callback: Callback): T {
+    val enhancer = Enhancer()
+    enhancer.setSuperclass(klass)
+    enhancer.setCallback(callback)
+    return (T)enhancer.create()
+  }
+}
+```
+
+Implement Interceptor using cglib's MethodInterceptor
+
+```kotlin
+import net.sf.cglib.proxy.MethodInterceptor
+
+class TransactionInterceptor: MethodInterceptor{
+  override fun intercept(target: Any, method: Method, args: Array<Any>, proxy: MethodProxy) {
+    startTransaction();
+    try{
+      result = proxy.invokeSuper(obj, args);
+      commit();
+      return result;
+    }catch(e: Exception){
+      rollback();
+      throw e;
+    }
+  }
+  private fun startTransaction() = // implement your db's transaction
+  private fun commit() = // ...
+  private fun rollback() = // ...
+}
+
+```
+
+###
+
 Happy Hacking!
+
+
