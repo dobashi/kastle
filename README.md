@@ -34,7 +34,7 @@ Just write mock class that you want to do.
 
 ```kotlin
 class MockedUserRepo(): UserRepo(){
-  override fun find(id: Int) = 1
+  override fun find(id: Int) = DUMMY_USER
 }
 ```
 
