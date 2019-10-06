@@ -9,7 +9,7 @@ Small service locator for kotlin.
 
 ## Example
 
-Just call `Locatro.get(Class<T>)`, you'll get instance.
+Just call `Locator.get(Class<T>)`, you'll get instance.
 
 ```kotlin
 import com.lavans.kasl.Locator
