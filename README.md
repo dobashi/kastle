@@ -119,7 +119,7 @@ Martin Fowler said:
 
 https://www.martinfowler.com/articles/injection.html
 
-It might be better to use DI in some special cases. But usually it waste time and effort resources. ServiceLocator is simple and enough solution.
+It might be better to use DI in some special cases. But usually it wastes time and effort resources. ServiceLocator is simple and enough solution.
 
 ----
 
