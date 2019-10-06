@@ -7,13 +7,6 @@ Small service locator for kotlin.
 
 **Explicit Dependency is usually better than Implicit Dependency**
 
-Martin Fowler said:
-> Inversion of control is a common feature of frameworks, but it's something that comes at a price. It tends to be hard to understand and leads to problems when you are trying to debug. So on the whole I prefer to avoid it unless I need it. 
-
-https://www.martinfowler.com/articles/injection.html
-
-It might be better to use DI in some special cases. But usually it waste time resources. ServiceLocator is simple and enough solution.
-
 ## Example
 
 Just call `Locatro.get(Class<T>)`, you'll get instance.
@@ -61,6 +54,13 @@ You can set both Mock and Type at the same time.
   Locator.set(Real::class, Mocked::class, Type.Prototype)
 ```
 
+### Confirm current settings
+
+You can see current setting like this:
+
+```kotlin
+log.debug(Locator.list())
+```
 
 ## Customize for Aspect
 
@@ -112,7 +112,16 @@ class TransactionInterceptor: MethodInterceptor{
 
 ```
 
-###
+### Service Locator vs DI container
+
+Martin Fowler said:
+> Inversion of control is a common feature of frameworks, but it's something that comes at a price. It tends to be hard to understand and leads to problems when you are trying to debug. So on the whole I prefer to avoid it unless I need it. 
+
+https://www.martinfowler.com/articles/injection.html
+
+It might be better to use DI in some special cases. But usually it waste time resources. ServiceLocator is simple and enough solution.
+
+----
 
 Happy Hacking!
 
