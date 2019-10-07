@@ -25,7 +25,7 @@ You can replace instance without paying cost to learn mock library.
 
 ```kotlin
 fun main(){
-  Locator.set(UserRepo::class, MockedUserRepo::class)
+  Locator.put(UserRepo::class, MockedUserRepo::class)
   UserService().get(1) // ... MockedUserRepo.find() will be called
 }
 ```
@@ -45,24 +45,24 @@ Not-overrided functions are still valid since it's derived from real UserRepo.
 Default is `Singleton`. If you want to use class as prototype, just add 1 parameter.
 
 ```kotlin
-  Locator.set(Real::class, Type.Prototype)
+  Locator.put(Real::class, Type.Prototype)
 ```
 
 You can set both Mock and Type at the same time.
 
 ```kotlin
-  Locator.set(Real::class, Mocked::class, Type.Prototype)
+  Locator.put(Real::class, Mocked::class, Type.Prototype)
 ```
 
-### Confirm current settings
+### Confirm current settings (wip)
 
-You can see current setting like this:
+You can see current setting like this: 
 
 ```kotlin
 log.debug(Locator.list())
 ```
 
-## Customize for Aspect
+## Customize for Aspect (wip)
 
 You can customize your instance dynamically with [cglib](https://github.com/cglib/cglib).
 
