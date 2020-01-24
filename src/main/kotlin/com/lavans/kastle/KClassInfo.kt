@@ -1,4 +1,4 @@
-package com.lavans.kasl
+package com.lavans.kastle
 
 import io.vavr.control.Option
 import io.vavr.control.Option.none

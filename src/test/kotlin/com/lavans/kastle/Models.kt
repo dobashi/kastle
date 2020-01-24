@@ -1,4 +1,4 @@
-package com.lavans.kasl
+package com.lavans.kastle
 
 open class A {
     open fun say() = "A: Hello!"

@@ -1,5 +1,6 @@
-KASL (Kotlin Advanced Service Locator)
+KASTLE (ˈkæs.əl)
 ----
+ (Kotlin Aspect Service Transparent Locator Engine)
 
 ## About
 
@@ -7,12 +8,14 @@ Small service locator for kotlin.
 
 **Explicit Dependency is usually better than Implicit Dependency**
 
+People should use `Service Locator` instead of `Dependency Injection`.
+
 ## Example
 
 Just call `Locator.get(Class<T>)`, then you'll get the instance.
 
 ```kotlin
-import com.lavans.kasl.Locator
+import com.lavans.kastle.Locator
 class UserService(){
   private val userRepo = Locator.get(UserRepo::class)
   fun get(id: Int) = userRepo.find(id)

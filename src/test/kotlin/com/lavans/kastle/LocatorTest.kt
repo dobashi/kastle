@@ -1,4 +1,4 @@
-package com.lavans.kasl
+package com.lavans.kastle
 
 import org.junit.jupiter.api.Test
 

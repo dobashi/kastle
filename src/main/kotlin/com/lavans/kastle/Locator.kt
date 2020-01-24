@@ -1,7 +1,7 @@
-package com.lavans.kasl
+package com.lavans.kastle
 
 import kotlin.reflect.KClass
-import com.lavans.kasl.KClassInfo.Type
+import com.lavans.kastle.KClassInfo.Type
 
 typealias Klass = KClass<out Any>
 fun Klass.name(): String = qualifiedName!!
