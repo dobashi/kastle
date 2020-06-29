@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    compile("io.vavr:vavr-kotlin:1.0.0-SNAPSHOT")
+    implementation("io.vavr:vavr-kotlin:1.0.0-SNAPSHOT")
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
